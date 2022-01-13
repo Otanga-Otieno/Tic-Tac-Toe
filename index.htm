@@ -7,22 +7,27 @@
 
 <body>
     <div style="display: flex; align-items: center; text-align: center; width: 100%; height: 100vh;">
-        <table>
-            <tr class="b_bottom">
-                <td class="b_right" id="a1" onclick="play(this.id);"></td>
-                <td class="b_right" id="a2" onclick="play(this.id);"></td>
-                <td id="a3" onclick="play(this.id);"></td>
-            </tr>
-            <tr class="b_bottom">
-                <td class="b_right" id="b1" onclick="play(this.id);"></td>
-                <td class="b_right" id="b2" onclick="play(this.id);"></td>
-                <td id="b3" onclick="play(this.id);"></td>
-            </tr>
-            <tr>
-                <td class="b_right" id="c1" onclick="play(this.id);"></td>
-                <td class="b_right" id="c2" onclick="play(this.id);"></td>
-                <td id="c3" onclick="play(this.id);"></td>
-            </tr>
-        </table>
+        <div>
+            <table>
+                <tr class="b_bottom">
+                    <td class="b_right" id="a1" onclick="play(this.id);"></td>
+                    <td class="b_right" id="a2" onclick="play(this.id);"></td>
+                    <td id="a3" onclick="play(this.id);"></td>
+                </tr>
+                <tr class="b_bottom">
+                    <td class="b_right" id="b1" onclick="play(this.id);"></td>
+                    <td class="b_right" id="b2" onclick="play(this.id);"></td>
+                    <td id="b3" onclick="play(this.id);"></td>
+                </tr>
+                <tr>
+                    <td class="b_right" id="c1" onclick="play(this.id);"></td>
+                    <td class="b_right" id="c2" onclick="play(this.id);"></td>
+                    <td id="c3" onclick="play(this.id);"></td>
+                </tr>
+            </table><br><br>
+
+            <div><span id="winner" style="font-size: 4rem;" hidden></span> <span id="wins" style="font-size: 3rem;" hidden>&nbsp;wins</span></div>
+            
+        </div>
     </div>
 </body>
