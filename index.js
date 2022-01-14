@@ -90,12 +90,28 @@ function winPatternSymbol(symbol) {
         winnerSpan.innerHTML = symbol;
         winnerSpan.removeAttribute("hidden");
         winsSpan.removeAttribute("hidden");
+
+        if(symbol == "X") {
+            winnerSpan.style.color = "blue";
+        } else {
+            winnerSpan.style.color = "red";
+        }
+
     }
 
-    if(symbol == "X") {
-        winnerSpan.style.color = "blue";
-    } else {
-        winnerSpan.style.color = "red";
+    if(isFull()) console.log("full");
+
+}
+
+function isFull() {
+
+    for(let i=0; i<9; ++i) {
+
+        var tacArr = document.getElementsByClassName("tc")[i].innerHTML;
+        if (tacArr == "" ) return false;
+
     }
+
+    return true;
 
 }
