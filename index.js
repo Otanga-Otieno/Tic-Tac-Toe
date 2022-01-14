@@ -115,3 +115,14 @@ function isFull() {
     return true;
 
 }
+
+function isEmpty(cell) {
+
+    var tableCell = document.getElementById(cell).innerHTML;
+    if(tableCell == "") {
+        return true;
+    } else {
+        return false;
+    }
+
+}
