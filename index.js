@@ -1,5 +1,17 @@
 var turns = 1;
 
+var a1 = document.getElementById("a1").innerHTML;
+var a2 = document.getElementById("a2").innerHTML;
+var a3 = document.getElementById("a3").innerHTML;
+var b1 = document.getElementById("b1").innerHTML;
+var b2 = document.getElementById("b2").innerHTML;
+var b3 = document.getElementById("b3").innerHTML;
+var c1 = document.getElementById("c1").innerHTML;
+var c2 = document.getElementById("c2").innerHTML;
+var c3 = document.getElementById("c3").innerHTML;
+var stateArr = [a1,a2,a3,b1,b2,b3,c1,c2,c3];
+var stateArrVars = ["a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2","c3"];
+
 function drawX(cell) {
 
     var tablecell = document.getElementById(cell);
@@ -22,6 +34,23 @@ function play(cellId) {
         return;
     }
 
+    if((turns%2) == 0) {
+        drawO(cellId);
+        turns += 1;
+        winPatternSymbol("O");
+    } else {
+        drawX(cellId);
+        turns += 1;
+        winPatternSymbol("X");
+    }
+
+    playRandom();
+
+}
+
+function AIPlay(cellId) {
+
+    if(winPattern()) return;
     if((turns%2) == 0) {
         drawO(cellId);
         turns += 1;
@@ -99,8 +128,6 @@ function winPatternSymbol(symbol) {
 
     }
 
-    if(isFull()) console.log("full");
-
 }
 
 function isFull() {
@@ -123,6 +150,18 @@ function isEmpty(cell) {
         return true;
     } else {
         return false;
+    }
+
+}
+
+function playRandom() {
+
+    for(let i=0; i<9; ++i) {
+        var cellId = stateArrVars[i];
+        if(isEmpty(cellId)) {
+            AIPlay(cellId);
+            break;
+        }
     }
 
 }
