@@ -1,4 +1,7 @@
-var turns = 1;
+var turns = 0;
+
+var human = "X";
+var AI = "O";
 
 var a1 = document.getElementById("a1").innerHTML;
 var a2 = document.getElementById("a2").innerHTML;
@@ -9,8 +12,22 @@ var b3 = document.getElementById("b3").innerHTML;
 var c1 = document.getElementById("c1").innerHTML;
 var c2 = document.getElementById("c2").innerHTML;
 var c3 = document.getElementById("c3").innerHTML;
+
 var stateArr = [a1,a2,a3,b1,b2,b3,c1,c2,c3];
 var stateArrVars = ["a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2","c3"];
+
+
+function getBoard() {
+
+    var board = [];
+    for(let i=0; i<9; ++i) {
+        var sym = document.getElementById(stateArrVars[i]).innerHTML;
+        sym == "" ? board.push(i) : board.push(sym);
+    }
+
+    return board;
+
+}
 
 function drawX(cell) {
 
@@ -30,39 +47,42 @@ function drawO(cell) {
 
 function play(cellId) {
 
+    board = getBoard();
     if(isOccupied(cellId)) {
         return;
     }
 
     if((turns%2) == 0) {
-        drawO(cellId);
-        turns += 1;
-        winPatternSymbol("O");
-    } else {
         drawX(cellId);
         turns += 1;
-        winPatternSymbol("X");
+        winPatternSymbol(board, "X");
+    } else {
+        drawO(cellId);
+        console.log(turns);
+        turns += 1;
+        winPatternSymbol(board, "O");
     }
-    evaluate();
 
-    playRandom();
+    if(winPattern(board, human)) return;
+
+    playMinimax();
 
 }
 
 function AIPlay(cellId) {
 
-    if(winPattern()) return;
+    var board = getBoard();
+    if(winPattern(board, human)) return;
     if((turns%2) == 0) {
-        drawO(cellId);
-        winPatternSymbol("O");
+        drawX(cellId);
+        winPatternSymbol(board, "X");
         turns += 1;
 
     } else {
-        drawX(cellId);
-        winPatternSymbol("X");
+        drawO(cellId);
+        winPatternSymbol(board, "O");
         turns += 1;
     }
-    evaluate();
 
 }
 
@@ -78,87 +98,28 @@ function isOccupied(cell) {
 
 }
 
-function winPattern() {
+function winPattern(board, player){
 
-    var pattern = false;
-
-    var a1 = document.getElementById("a1").innerHTML;
-    var a2 = document.getElementById("a2").innerHTML;
-    var a3 = document.getElementById("a3").innerHTML;
-    var b1 = document.getElementById("b1").innerHTML;
-    var b2 = document.getElementById("b2").innerHTML;
-    var b3 = document.getElementById("b3").innerHTML;
-    var c1 = document.getElementById("c1").innerHTML;
-    var c2 = document.getElementById("c2").innerHTML;
-    var c3 = document.getElementById("c3").innerHTML;
-
-    if (a1 == b2 && b2 == c3 && b2 != "") {
-        pattern = true;
-        return pattern;
-    }
-
-    if (a3 == b2 && b2 == c1 && b2 != "") {
-        pattern = true;
-        return pattern;
-    }
-
-    if (a1 == a2 && a2 == a3 && a1 != ""||b1 == b2 && b2 == b3 && b1 != ""||c1 == c2 && c2 == c3 && c1 != "") {
-        pattern = true;
-        return pattern;
-    }
-
-    if (a1 == b1 && b1 == c1 && a1 != ""||a2 == b2 && b2 == c2 && a2 != ""||a3 == b3  && b3 == c3 && a3 != "") {
-        pattern = true;
-        return pattern;
+    if (
+        (board[0] == player && board[1] == player && board[2] == player) ||
+        (board[3] == player && board[4] == player && board[5] == player) ||
+        (board[6] == player && board[7] == player && board[8] == player) ||
+        (board[0] == player && board[3] == player && board[6] == player) ||
+        (board[1] == player && board[4] == player && board[7] == player) ||
+        (board[2] == player && board[5] == player && board[8] == player) ||
+        (board[0] == player && board[4] == player && board[8] == player) ||
+        (board[2] == player && board[4] == player && board[6] == player)
+        ) {
+        return true;
+    } else {
+        return false;
     }
 
 }
 
-function evaluateWinPattern(board) {
+function winPatternSymbol(board, symbol) {
 
-    var pattern = false;
-
-    var a1 = board[0];
-    var a2 = board[1];
-    var a3 = board[2];
-    var b1 = board[3];
-    var b2 = board[4];
-    var b3 = board[5];
-    var c1 = board[6];
-    var c2 = board[7];
-    var c3 = board[8];
-
-    if (a1 == b2 && b2 == c3 && b2 != "") {
-        pattern = true;
-    }
-
-    if (a3 == b2 && b2 == c1 && b2 != "") {
-        pattern = true;
-    }
-
-    if (a1 == a2 && a2 == a3 && a1 != ""||b1 == b2 && b2 == b3 && b1 != ""||c1 == c2 && c2 == c3 && c1 != "") {
-        pattern = true;
-    }
-
-    if (a1 == b1 && b1 == c1 && a1 != ""||a2 == b2 && b2 == c2 && a2 != ""||a3 == b3  && b3 == c3 && a3 != "") {
-        pattern = true;
-    }
-
-    if(pattern) {
-        if(turns%2 == 0) {
-            return -10;
-        } else {
-            return 10;
-        }
-    }
-
-    return 0;
-
-}
-
-function winPatternSymbol(symbol) {
-
-    if(winPattern()) {
+    if(winPattern(board, symbol)) {
         var winnerSpan = document.getElementById("winner");
         var winsSpan = document.getElementById("wins");
         winnerSpan.innerHTML = symbol;
@@ -181,6 +142,18 @@ function isFull() {
 
         var tacArr = document.getElementsByClassName("tc")[i].innerHTML;
         if (tacArr == "" ) return false;
+
+    }
+
+    return true;
+
+}
+
+function isFullBoard(board) {
+
+    for(let i=0; i<9; ++i) {
+
+        if (board[i] == "" ) return false;
 
     }
 
@@ -211,15 +184,89 @@ function playRandom() {
 
 }
 
-function evaluate() {
+function playMinimax() {
 
-    var board = [];
-    for(let i=0; i<9; ++i) {
-        var sym = document.getElementById(stateArrVars[i]).innerHTML;
-        board.push(sym);
+    var board = getBoard();
+    var bMove = minimax(board, AI).index;
+    var cell = stateArrVars[bMove];
+    AIPlay(cell);
+    winPatternSymbol(getBoard(), AI);
+
+}
+
+function logBoard(board) {
+
+    console.log(board);
+
+}
+
+function availableMoves(board) {
+
+    var availMoves = [];
+    for(let i=0; i<board.length; i++) {
+        if(!isNaN(board[i])) {
+            availMoves.push(i);
+        }
     }
-    var score = evaluateWinPattern(board);
-    console.log(score);console.log(board);
+    return availMoves;
 
+}
+
+
+function minimax(board, player) {
+
+    var availMoves = availableMoves(board);
+    var moves = [];
+
+    if (winPattern(board, human)){
+        return {score:-10};
+    } else if (winPattern(board, AI)){
+        return {score:10};
+    } else if (availMoves.length === 0){
+        return {score:0};
+    }
+    
+  
+    for (var i = 0; i < availMoves.length; i++){
+        var move = {};
+        move.index = board[availMoves[i]];
+        board[availMoves[i]] = player;
+
+        if (player == AI){
+            var result = minimax(board,human);
+            move.score = result.score;
+        }
+        else {
+            var result = minimax(board, AI);
+            move.score = result.score;
+        }
+
+        board[availMoves[i]] = move.index;
+        moves.push(move);
+    }
+  
+    var bestMove;
+    if(player == AI){
+
+        var bestScore = -10000;
+        for(var i = 0; i < moves.length; i++){
+          if(moves[i].score > bestScore){
+            bestScore = moves[i].score;
+            bestMove = i;
+          }
+        }
+
+    }else {
+
+        var bestScore = 10000;
+        for(var i = 0; i < moves.length; i++){
+          if(moves[i].score < bestScore){
+            bestScore = moves[i].score;
+            bestMove = i;
+          }
+        }
+
+    } 
+    return moves[bestMove];
 
 }
