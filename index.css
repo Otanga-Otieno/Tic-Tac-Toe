@@ -5,9 +5,17 @@ table {
     border: 1px solid black;
     border-collapse: collapse;
     table-layout: fixed;
-    width: 30%;
-    height: 50%;
+    width: 80%;
 
+}
+
+@media only screen and (min-width: 768px) {
+    table {
+
+        width: 30%;
+        height: 50%;
+
+    }
 }
 
 .b_bottom {
