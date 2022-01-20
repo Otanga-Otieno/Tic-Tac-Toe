@@ -246,3 +246,9 @@ function minimax(board, player) {
     return moves[bestMove];
 
 }
+
+function refreshDOM() {
+
+    window.location.reload();
+
+}
