@@ -249,7 +249,22 @@ function minimax(board, player) {
 }
 
 function refreshDOM() {
-
     window.location.reload();
+}
+
+function swapSymbol(symbol) {
+    return symbol == "X"? "O": "X";
+}
+
+function selectAI(player) {
+
+    if(player == "human") return;
+
+    human = player;
+    AI = swapSymbol(player);
+
+    if(AI == "X") {
+        playMinimax();
+    }
 
 }
