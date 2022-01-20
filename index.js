@@ -132,6 +132,9 @@ function winPatternSymbol(board, symbol) {
             winnerSpan.style.color = "red";
         }
 
+    } else if(isFull()) {
+        var drawsSpan = document.getElementById("draws");
+        drawsSpan.removeAttribute("hidden");
     }
 
 }
