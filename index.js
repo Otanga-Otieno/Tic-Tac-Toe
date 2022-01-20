@@ -36,9 +36,9 @@ function drawO(cell) {
 function play(cellId) {
 
     board = getBoard();
-    if(isOccupied(cellId)) {
-        return;
-    }
+
+    if(winPattern(board, AI)) return;
+    if(isOccupied(cellId)) return;
 
     if((turns%2) == 0) {
         drawX(cellId);
