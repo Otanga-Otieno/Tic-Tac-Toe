@@ -58,6 +58,28 @@ function play(cellId) {
 
 }
 
+function playHumans(cellId) {
+
+    board = getBoard();
+
+    if(winPattern(board, AI)) return;
+    if(winPattern(board, human)) return;
+    if(isOccupied(cellId)) return;
+
+    if((turns%2) == 0) {
+        drawX(cellId);
+        board = getBoard();
+        turns += 1;
+        winPatternSymbol(board, "X");
+    } else {
+        drawO(cellId);
+        board = getBoard();
+        turns += 1;
+        winPatternSymbol(board, "O");
+    }
+
+}
+
 function AIPlay(cellId) {
 
     var board = getBoard();
@@ -258,7 +280,10 @@ function swapSymbol(symbol) {
 
 function selectAI(player) {
 
-    if(player == "human") return;
+    if(player == "human") {
+        play = playHumans;
+        return;
+    }
 
     human = player;
     AI = swapSymbol(player);
