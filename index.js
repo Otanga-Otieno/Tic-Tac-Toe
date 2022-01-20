@@ -141,13 +141,10 @@ function winPatternSymbol(board, symbol) {
 
 function isFull() {
 
+    var tacArr = document.getElementsByClassName("tc");
     for(let i=0; i<9; ++i) {
-
-        var tacArr = document.getElementsByClassName("tc")[i].innerHTML;
-        if (tacArr == "" ) return false;
-
+        if (tacArr[i].innerHTML == "" ) return false;
     }
-
     return true;
 
 }
