@@ -13,7 +13,6 @@ function getBoard() {
         var sym = document.getElementById(stateArrVars[i]).innerHTML;
         sym == "" ? board.push(i) : board.push(sym);
     }
-
     return board;
 
 }
@@ -121,7 +120,7 @@ function winPatternSymbol(board, symbol) {
             winnerSpan.style.color = "red";
         }
 
-    } else if(isFullBoard(board)) {
+    } else if(isFull()) {
         var drawsSpan = document.getElementById("draws");
         drawsSpan.removeAttribute("hidden");
     }
