@@ -52,6 +52,7 @@ function play(cellId) {
     }
 
     if(winPattern(board, human)) return;
+    if(isFull()) return;
 
     playMinimax();
 
