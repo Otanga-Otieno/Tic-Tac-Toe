@@ -3,17 +3,6 @@ var turns = 0;
 var human = "X";
 var AI = "O";
 
-var a1 = document.getElementById("a1").innerHTML;
-var a2 = document.getElementById("a2").innerHTML;
-var a3 = document.getElementById("a3").innerHTML;
-var b1 = document.getElementById("b1").innerHTML;
-var b2 = document.getElementById("b2").innerHTML;
-var b3 = document.getElementById("b3").innerHTML;
-var c1 = document.getElementById("c1").innerHTML;
-var c2 = document.getElementById("c2").innerHTML;
-var c3 = document.getElementById("c3").innerHTML;
-
-var stateArr = [a1,a2,a3,b1,b2,b3,c1,c2,c3];
 var stateArrVars = ["a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2","c3"];
 
 
@@ -132,7 +121,7 @@ function winPatternSymbol(board, symbol) {
             winnerSpan.style.color = "red";
         }
 
-    } else if(isFull()) {
+    } else if(isFullBoard(board)) {
         var drawsSpan = document.getElementById("draws");
         drawsSpan.removeAttribute("hidden");
     }
@@ -145,18 +134,6 @@ function isFull() {
     for(let i=0; i<9; ++i) {
         if (tacArr[i].innerHTML == "" ) return false;
     }
-    return true;
-
-}
-
-function isFullBoard(board) {
-
-    for(let i=0; i<9; ++i) {
-
-        if (board[i] == "" ) return false;
-
-    }
-
     return true;
 
 }
