@@ -281,6 +281,7 @@ function swapSymbol(symbol) {
 function selectAI(player) {
 
     disableSelectionButton(player);
+    refreshBoard();
 
     if(player == "human") {
         play = playHumans;
@@ -315,4 +316,14 @@ function disableSelectionButton(player) {
         x.removeAttribute("disabled");
         human.removeAttribute("disabled");
     }
+}
+
+function refreshBoard() {
+
+    var tacArr = document.getElementsByClassName("tc");
+    for(let i=0; i<9; ++i) {
+        tacArr[i].innerHTML = "";
+    }
+    turns = 0;
+
 }
