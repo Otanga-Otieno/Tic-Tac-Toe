@@ -280,6 +280,8 @@ function swapSymbol(symbol) {
 
 function selectAI(player) {
 
+    disableSelectionButton(player);
+
     if(player == "human") {
         play = playHumans;
         return;
@@ -292,4 +294,25 @@ function selectAI(player) {
         playMinimax();
     }
 
+}
+
+function disableSelectionButton(player) {
+
+    var x = document.getElementById("selectx");
+    var o = document.getElementById("selecto");
+    var human = document.getElementById("selecthuman");
+
+    if(player == "human") {
+        human.setAttribute("disabled", true);
+        x.removeAttribute("disabled");
+        o.removeAttribute("disabled");
+    } else if(player == "X") {
+        x.setAttribute("disabled", true);
+        human.removeAttribute("disabled");
+        o.removeAttribute("disabled");
+    } else if(player == "O") {
+        o.setAttribute("disabled", true);
+        x.removeAttribute("disabled");
+        human.removeAttribute("disabled");
+    }
 }
