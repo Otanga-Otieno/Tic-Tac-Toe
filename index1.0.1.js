@@ -47,7 +47,6 @@ function play(cellId) {
         winPatternSymbol(board, "X");
     } else {
         drawO(cellId);
-        console.log(turns);
         turns += 1;
         winPatternSymbol(board, "O");
     }
@@ -272,15 +271,8 @@ function minimax(board, player) {
 }
 
 function refreshDOM() {
-    var winnerSpan = document.getElementById("winner");
-    var winsSpan = document.getElementById("wins");
-    var drawsSpan = document.getElementById("draws");
-
-    winnerSpan.setAttribute("hidden", true);
-    winsSpan.setAttribute("hidden", true);
-    drawsSpan.setAttribute("hidden", true);
-    
     refreshBoard();
+    if(AI == "X") playMinimax();
 }
 
 function swapSymbol(symbol) {
@@ -290,10 +282,12 @@ function swapSymbol(symbol) {
 function selectAI(player) {
 
     disableSelectionButton(player);
-    refreshBoard();
 
     if(player == "human") {
         play = playHumans;
+        human = "O";
+        AI = "X";
+        refreshBoard();
         return;
     } else {
         play = swapPlay;
@@ -301,10 +295,12 @@ function selectAI(player) {
 
     human = player;
     AI = swapSymbol(player);
-
+    refreshBoard();
+    
     if(AI == "X") {
         playMinimax();
     }
+    
 
 }
 
@@ -336,5 +332,13 @@ function refreshBoard() {
         tacArr[i].innerHTML = "";
     }
     turns = 0;
+
+    var winnerSpan = document.getElementById("winner");
+    var winsSpan = document.getElementById("wins");
+    var drawsSpan = document.getElementById("draws");
+
+    winnerSpan.setAttribute("hidden", true);
+    winsSpan.setAttribute("hidden", true);
+    drawsSpan.setAttribute("hidden", true);
 
 }
