@@ -2,6 +2,7 @@ var turns = 0;
 
 var human = "X";
 var AI = "O";
+var swapPlay = play;
 
 var stateArrVars = ["a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2","c3"];
 
@@ -286,6 +287,8 @@ function selectAI(player) {
     if(player == "human") {
         play = playHumans;
         return;
+    } else {
+        play = swapPlay;
     }
 
     human = player;
