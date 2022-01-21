@@ -272,7 +272,15 @@ function minimax(board, player) {
 }
 
 function refreshDOM() {
-    window.location.reload();
+    var winnerSpan = document.getElementById("winner");
+    var winsSpan = document.getElementById("wins");
+    var drawsSpan = document.getElementById("draws");
+
+    winnerSpan.setAttribute("hidden", true);
+    winsSpan.setAttribute("hidden", true);
+    drawsSpan.setAttribute("hidden", true);
+    
+    refreshBoard();
 }
 
 function swapSymbol(symbol) {
