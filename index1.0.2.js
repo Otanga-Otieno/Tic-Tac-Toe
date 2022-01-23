@@ -2,6 +2,8 @@ var turns = 0;
 
 var human = "X";
 var AI = "O";
+
+//store play function in variable to enable swapping between AI and 2 player
 var swapPlay = play;
 
 var stateArrVars = ["a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2","c3"];
@@ -304,6 +306,7 @@ function selectAI(player) {
 
 }
 
+//disable most recently selected button
 function disableSelectionButton(player) {
 
     var x = document.getElementById("selectx");
