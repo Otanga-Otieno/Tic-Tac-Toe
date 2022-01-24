@@ -336,6 +336,7 @@ function refreshBoard() {
     }
     turns = 0;
 
+    //clear win and draw calls
     var winnerSpan = document.getElementById("winner");
     var winsSpan = document.getElementById("wins");
     var drawsSpan = document.getElementById("draws");
